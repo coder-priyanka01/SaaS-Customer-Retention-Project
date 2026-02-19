@@ -41,7 +41,7 @@ st.markdown("""
 # LOAD MODEL
 # --------------------------------------------------
 import os
-import pickle
+import joblib
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -243,3 +243,4 @@ Bar Plot shows:
 
 This ensures full AI transparency.
 """)
+
