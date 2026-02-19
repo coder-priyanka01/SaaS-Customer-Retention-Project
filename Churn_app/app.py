@@ -53,8 +53,7 @@ with open(model_path, "rb") as f:
 
 with open(features_path, "rb") as f:
     features = pickle.load(f)
-model_features = features["model_features"]
-
+model_features = joblib.load(features_path)
 # --------------------------------------------------
 # SIDEBAR NAVIGATION
 # --------------------------------------------------
@@ -243,4 +242,5 @@ Bar Plot shows:
 
 This ensures full AI transparency.
 """)
+
 
