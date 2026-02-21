@@ -219,7 +219,7 @@ elif page == "🔍 SHAP Explanation":
     else:
         input_df = st.session_state["last_input"]
 
-        explainer = shap.Explainer(model)
+        explainer = shap.Explainer(model.predict, input_df)
         shap_values = explainer(input_df)
 
         st.subheader("📊 Individual Prediction Breakdown")
@@ -241,5 +241,6 @@ Bar Plot shows:
 
 This ensures full AI transparency.
 """)
+
 
 
