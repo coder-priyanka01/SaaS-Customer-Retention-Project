@@ -49,13 +49,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(BASE_DIR, "churn_model.pkl")
 features_path = os.path.join(BASE_DIR, "model_features.pkl")
 
-with open(model_path, "rb") as f:
-    model = pickle.load(f)
-
-with open(features_path, "rb") as f:
-    features = pickle.load(f)
-model_features = joblib.load(features_path)
-
+model = joblib.load(model_path)
+features = joblib.load(features_path)
+model_features = features
 
 # --------------------------------------------------
 # SIDEBAR NAVIGATION
@@ -223,7 +219,7 @@ elif page == "🔍 SHAP Explanation":
     else:
         input_df = st.session_state["last_input"]
 
-        explainer = shap.Explainer(model)
+        explainer = shap.TreeExplainer(model)
         shap_values = explainer(input_df)
 
         st.subheader("📊 Individual Prediction Breakdown")
@@ -245,3 +241,4 @@ Bar Plot shows:
 
 This ensures full AI transparency.
 """)
+
