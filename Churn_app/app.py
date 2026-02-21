@@ -2,7 +2,6 @@ import joblib
 import streamlit as st
 import pickle
 import pandas as pd
-import shap
 import matplotlib.pyplot as plt
 
 # --------------------------------------------------
@@ -207,34 +206,7 @@ This AI engine:
 - Helps executives make retention decisions
 """)
 
-# ==================================================
-# SHAP EXPLANATION
-# ==================================================
-elif page == "🔍 SHAP Explanation":
 
-    st.title("🔍 Model Explanation (SHAP Analysis)")
-
-    if "last_input" not in st.session_state:
-        st.info("Please make a prediction first.")
-    else:
-        input_df = st.session_state["last_input"]
-
-        explainer = shap.TreeExplainer(model, feature_perturbation="tree_path_dependent")
-        shap_values = explainer.shap_values(input_df)
-
-        fig = plt.figure()
-        shap.summary_plot(shap_values, input_df, show=False)
-        st.pyplot()
-
-        st.markdown("""
-Waterfall Plot shows:
-• How each feature pushed prediction up or down  
-
-Bar Plot shows:
-• Ranked importance of features for this customer  
-
-This ensures full AI transparency.
-""")
 
 
 
