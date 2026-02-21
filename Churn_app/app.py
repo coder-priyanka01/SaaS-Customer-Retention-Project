@@ -219,12 +219,12 @@ elif page == "🔍 SHAP Explanation":
     else:
         input_df = st.session_state["last_input"]
 
-        explainer = shap.Explainer(lambda x: model.predict_proba(x)[:, 1], input_df)
+        explainer = shap.Explainer(model)
         shap_values = explainer(input_df)
 
         st.subheader("📊 Individual Prediction Breakdown")
         fig1 = plt.figure()
-        shap.plots.bar(shap_values)
+        shap.plots.waterfall(shap_values[0], show=False)
         st.pyplot(fig1)
 
         st.subheader("📈 Feature Importance Ranking")
@@ -241,6 +241,7 @@ Bar Plot shows:
 
 This ensures full AI transparency.
 """)
+
 
 
 
