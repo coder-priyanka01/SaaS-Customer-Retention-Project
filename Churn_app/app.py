@@ -219,18 +219,12 @@ elif page == "🔍 SHAP Explanation":
     else:
         input_df = st.session_state["last_input"]
 
-        explainer = shap.Explainer(model)
-        shap_values = explainer(input_df)
+        explainer = shap.TreeExplainer(model, feature_perturbation="tree_path_dependent")
+        shap_values = explainer.shap_values(input_df)
 
-        st.subheader("📊 Individual Prediction Breakdown")
-        fig1 = plt.figure()
-        shap.plots.waterfall(shap_values[0], show=False)
-        st.pyplot(fig1)
-
-        st.subheader("📈 Feature Importance Ranking")
-        fig2 = plt.figure()
-        shap.plots.bar(shap_values[0], show=False)
-        st.pyplot(fig2)
+        fig = plt.figure()
+        shap.summary_plot(shap_values, input_df, show=False)
+        st.pyplot()
 
         st.markdown("""
 Waterfall Plot shows:
@@ -241,6 +235,7 @@ Bar Plot shows:
 
 This ensures full AI transparency.
 """)
+
 
 
 
