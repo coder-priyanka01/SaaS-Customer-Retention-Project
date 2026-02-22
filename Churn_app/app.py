@@ -2,8 +2,6 @@ import joblib
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
-import shap
 
 # --------------------------------------------------
 # PAGE CONFIG
@@ -61,8 +59,7 @@ st.sidebar.title("📌 Navigation")
 page = st.sidebar.radio(
     "Go to",
     ["📊 Executive Dashboard",
-     "🤖 Churn Prediction",
-     "🔍 SHAP Explanation"]
+     "🤖 Churn Prediction"]
 )
 
 st.sidebar.markdown("---")
@@ -207,30 +204,4 @@ This AI engine:
 - Provides explainable insights
 - Helps executives make retention decisions
 """)
-        
-# ==================================================
-# SHAP EXPLANATION PAGE
-# ==================================================
-elif page == "🔍 Model Insights":
-
-    st.title("📊 Model Feature Importance")
-
-    importance = model.feature_importances_
-    feature_names = model_features
-
-    importance_df = pd.DataFrame({
-        "Feature": feature_names,
-        "Importance": importance
-    }).sort_values(by="Importance", ascending=False)
-
-    fig, ax = plt.subplots(figsize=(8,6))
-    ax.barh(importance_df["Feature"][:10][::-1],
-            importance_df["Importance"][:10][::-1])
-    ax.set_title("Top 10 Important Features")
-    st.pyplot(fig)
-
-    st.markdown("""
-    🔎 This chart shows which features most strongly influence churn prediction.
     
-    Higher importance means the feature plays a bigger role in the model’s decision.
-    """)
