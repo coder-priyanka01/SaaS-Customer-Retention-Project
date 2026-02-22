@@ -3,6 +3,8 @@ import streamlit as st
 import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import shap
 
 # --------------------------------------------------
 # PAGE CONFIG
@@ -204,6 +206,41 @@ This AI engine:
 - Calculates revenue impact
 - Provides explainable insights
 - Helps executives make retention decisions
+""")
+# ==================================================
+# SHAP EXPLANATION PAGE
+# ==================================================
+elif page == "🔍 SHAP Explanation":
+
+    st.title("🔍 AI Model Explanation (SHAP Analysis)")
+
+    if "last_input" not in st.session_state:
+        st.warning("⚠ Please make a prediction first to see SHAP explanation.")
+    else:
+        input_df = st.session_state["last_input"]
+
+        st.subheader("📊 Feature Impact on Prediction")
+
+        # Create SHAP Explainer
+        explainer = shap.Explainer(model)
+        shap_values = explainer(input_df)
+
+        # Waterfall Plot
+        fig = shap.plots.waterfall(shap_values[0], show=False)
+        st.pyplot(bbox_inches='tight')
+
+        st.markdown("---")
+
+        st.subheader("📈 Feature Importance Overview")
+
+        fig2 = shap.plots.bar(shap_values, show=False)
+        st.pyplot(bbox_inches='tight')
+
+        st.info("""
+🔎 SHAP shows:
+- Which features increased churn risk
+- Which features reduced churn risk
+- Exact contribution of each variable
 """)
 
 
