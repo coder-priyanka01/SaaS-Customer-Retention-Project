@@ -211,25 +211,26 @@ This AI engine:
 # ==================================================
 # SHAP EXPLANATION PAGE
 # ==================================================
-elif page == "🔍 SHAP Explanation":
+elif page == "🔍 Model Insights":
 
-    st.title("🔍 AI Model Explanation (SHAP Analysis)")
+    st.title("📊 Model Feature Importance")
 
-    if "last_input" not in st.session_state:
-        st.warning("⚠ Please make a prediction first.")
-    else:
-        input_df = st.session_state["last_input"]
+    importance = model.feature_importances_
+    feature_names = model_features
 
-        explainer = shap.Explainer(model.predict_proba, input_df)
-        shap_values = explainer(input_df)
+    importance_df = pd.DataFrame({
+        "Feature": feature_names,
+        "Importance": importance
+    }).sort_values(by="Importance", ascending=False)
 
-        fig, ax = plt.subplots()
-        shap.plots.waterfall(shap_values[0,:,1], show=False)
-        st.pyplot(fig, bbox_inches="tight")
+    fig, ax = plt.subplots(figsize=(8,6))
+    ax.barh(importance_df["Feature"][:10][::-1],
+            importance_df["Importance"][:10][::-1])
+    ax.set_title("Top 10 Important Features")
+    st.pyplot(fig)
 
-        st.markdown("---")
-        st.markdown("""
-        🔎 This chart explains how each feature influenced 
-        the churn probability for this specific customer.
-        """)
-
+    st.markdown("""
+    🔎 This chart shows which features most strongly influence churn prediction.
+    
+    Higher importance means the feature plays a bigger role in the model’s decision.
+    """)
