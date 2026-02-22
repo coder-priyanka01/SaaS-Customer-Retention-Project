@@ -222,20 +222,12 @@ elif page == "🔍 SHAP Explanation":
 
         st.subheader("📊 Feature Impact on Prediction")
 
-        # Create SHAP Explainer
-        explainer = shap.Explainer(model)
-        shap_values = explainer(input_df)
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(input_df)
 
-        # Waterfall Plot
-        fig = shap.plots.waterfall(shap_values[0], show=False)
-        st.pyplot(bbox_inches='tight')
-
-        st.markdown("---")
-
-        st.subheader("📈 Feature Importance Overview")
-
-        fig2 = shap.plots.bar(shap_values, show=False)
-        st.pyplot(bbox_inches='tight')
+        fig, ax = plt.subplots()
+        shap.summary_plot(shap_values, input_df, show=False)
+        st.pyplot(fig, bbox_inches="tight")
 
         st.info("""
         🔎 SHAP shows:
@@ -243,4 +235,3 @@ elif page == "🔍 SHAP Explanation":
         - Which features reduced churn risk
         - Exact contribution of each variable
         """)
-
