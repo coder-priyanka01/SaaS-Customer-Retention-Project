@@ -82,28 +82,48 @@ model_features = joblib.load(os.path.join(BASE_DIR, "model_features.pkl"))
 # --------------------------------------------------
 # SIDEBAR
 # --------------------------------------------------
-st.sidebar.title("📌 Navigation")
+with st.sidebar:
 
-page = st.sidebar.radio(
-    "Go to",
-    ["📊 Executive Dashboard",
-     "🤖 Churn Prediction"]
-)
+    st.markdown("## 📊 SaaS Revenue Risk Intelligence")
 
-st.sidebar.markdown("---")
+    st.markdown("""
+    This AI-powered system helps SaaS companies identify
+    high-risk customers and estimate potential revenue loss.
 
-st.sidebar.markdown("""
-### 📌 About This System
+    It transforms machine learning predictions into
+    actionable business insights.
+    """)
 
-This AI-powered system predicts customer churn risk  
-and estimates potential revenue loss.
+    st.divider()
 
-It helps decision-makers:
+    st.markdown("## ⚙️ How It Works")
 
-- Identify high-risk customers  
-- Prioritize retention strategies  
-- Protect recurring revenue  
-""")
+    st.markdown("""
+    1️⃣ Customer data is entered into the system  
+    2️⃣ The trained XGBoost model predicts churn probability  
+    3️⃣ Customers are classified into risk categories  
+    4️⃣ Revenue at Risk is calculated automatically  
+    5️⃣ Results are visualized for decision-making  
+    """)
+
+    st.divider()
+
+    st.markdown("## 🤖 Model Highlights")
+
+    st.markdown("""
+    ✔ XGBoost Classifier  
+    ✔ Probability-based Risk Segmentation  
+    ✔ Feature Schema Preservation  
+    ✔ Revenue-at-Risk Intelligence Layer  
+    ✔ Production-Ready Deployment  
+    """)
+
+    st.divider()
+
+    page = st.radio(
+        "📌 Navigate",
+        ["📊 Executive Dashboard", "🤖 Churn Prediction"]
+    )
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("👑 Created by Priyanka")
@@ -247,4 +267,5 @@ elif page == "🤖 Churn Prediction":
                 st.session_state["predictions"] = []
 
             st.session_state["predictions"].append(prob)
+
 
