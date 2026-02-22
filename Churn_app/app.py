@@ -83,7 +83,7 @@ model_features = joblib.load(os.path.join(BASE_DIR, "model_features.pkl"))
 # SIDEBAR
 # --------------------------------------------------
 with st.sidebar:
-
+    st.markdown("## 📊 SaaS Revenue Risk Intelligence")
     # 🔹 Navigation FIRST
     page = st.radio(
         "📌 Navigate",
@@ -93,7 +93,6 @@ with st.sidebar:
     st.divider()
 
     # 🔹 App Intro
-    st.markdown("## 📊 SaaS Revenue Risk Intelligence")
 
     st.markdown("""
     This AI-powered system helps SaaS companies identify
@@ -281,6 +280,7 @@ elif page == "🤖 Churn Prediction":
                 st.session_state["predictions"] = []
 
             st.session_state["predictions"].append(prob)
+
 
 
 
