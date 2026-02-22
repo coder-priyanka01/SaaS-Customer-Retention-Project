@@ -43,11 +43,17 @@ To build a deployable ML-powered system that:
 
 ## 📂 Project Structure
 ├── app.py
+
 ├── churn_model.pkl
+
 ├── model_features.pkl
+
 ├── SaaS-Sales.csv
+
 ├── SaaS_Customer_Retention_&_Revenue_Risk_Intelligence_System.ipynb
+
 ├── requirements.txt
+
 ├── runtime.txt
 
 ---
