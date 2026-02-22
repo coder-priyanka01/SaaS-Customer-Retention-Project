@@ -83,50 +83,64 @@ model_features = joblib.load(os.path.join(BASE_DIR, "model_features.pkl"))
 # SIDEBAR
 # --------------------------------------------------
 with st.sidebar:
-    
-     st.divider()
 
+    # 🔹 Navigation FIRST
     page = st.radio(
         "📌 Navigate",
         ["📊 Executive Dashboard", "🤖 Churn Prediction"]
     )
 
+    st.divider()
+
+    # 🔹 App Intro
     st.markdown("## 📊 SaaS Revenue Risk Intelligence")
 
     st.markdown("""
     This AI-powered system helps SaaS companies identify
     high-risk customers and estimate potential revenue loss.
 
-    It transforms machine learning predictions into
+    It converts machine learning predictions into
     actionable business insights.
     """)
 
     st.divider()
 
+    # 🔹 How It Works
     st.markdown("## ⚙️ How It Works")
 
     st.markdown("""
-    1️⃣ Customer data is entered into the system  
-    2️⃣ The trained XGBoost model predicts churn probability  
-    3️⃣ Customers are classified into risk categories  
-    4️⃣ Revenue at Risk is calculated automatically  
-    5️⃣ Results are visualized for decision-making  
+    1️⃣ Customer data is entered  
+    2️⃣ XGBoost model predicts churn probability  
+    3️⃣ Risk category is assigned  
+    4️⃣ Revenue at Risk is calculated  
+    5️⃣ Results are visualized  
     """)
 
     st.divider()
 
+    # 🔹 Model Highlights
     st.markdown("## 🤖 Model Highlights")
 
     st.markdown("""
     ✔ XGBoost Classifier  
-    ✔ Probability-based Risk Segmentation  
+    ✔ Probability-Based Risk Segmentation  
     ✔ Feature Schema Preservation  
     ✔ Revenue-at-Risk Intelligence Layer  
     ✔ Production-Ready Deployment  
     """)
 
-st.sidebar.markdown("---")
-st.sidebar.markdown("👑 Created by Priyanka")
+    st.divider()
+
+    # 🔹 Creator Credit (Bottom – Clean & Classy)
+    st.markdown(
+        """
+        <div style='text-align: center; font-size: 14px;'>
+            👩‍💻 <b>👑 Created by Priyanka</b><br>
+            AI & Data Science Enthusiast
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # --------------------------------------------------
 # FEATURE GROUPING
@@ -267,6 +281,7 @@ elif page == "🤖 Churn Prediction":
                 st.session_state["predictions"] = []
 
             st.session_state["predictions"].append(prob)
+
 
 
 
