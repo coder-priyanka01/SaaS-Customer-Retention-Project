@@ -216,22 +216,32 @@ elif page == "🔍 SHAP Explanation":
     st.title("🔍 AI Model Explanation (SHAP Analysis)")
 
     if "last_input" not in st.session_state:
-        st.warning("⚠ Please make a prediction first to see SHAP explanation.")
+        st.warning("⚠ Please make a prediction first.")
     else:
         input_df = st.session_state["last_input"]
 
-        st.subheader("📊 Feature Impact on Prediction")
-
         explainer = shap.TreeExplainer(model)
-        shap_values = explainer.shap_values(input_df)
+        shap_values = explainer(input_df)
 
         fig, ax = plt.subplots()
-        shap.summary_plot(shap_values, input_df, show=False)
+        shap.plots.waterfall(shap_values[0], show=False)
         st.pyplot(fig, bbox_inches="tight")
 
-        st.info("""
-        🔎 SHAP shows:
-        - Which features increased churn risk
-        - Which features reduced churn risk
-        - Exact contribution of each variable
+        st.markdown("---")
+
+        st.subheader("📘 How to Interpret This Chart")
+
+        st.markdown("""
+        🔎 **What This Means:**
+        
+        - The chart shows how each feature influenced the churn prediction.
+        - Features pushing the prediction **higher** increase churn risk.
+        - Features pushing the prediction **lower** reduce churn risk.
+        - The base value represents the average prediction of the model.
+        - The final value on the right is the customer’s predicted churn probability.
+
+        💡 This helps decision-makers understand:
+        - Why a customer is at risk
+        - Which business factors are driving churn
+        - What areas need strategic intervention
         """)
