@@ -83,6 +83,13 @@ model_features = joblib.load(os.path.join(BASE_DIR, "model_features.pkl"))
 # SIDEBAR
 # --------------------------------------------------
 with st.sidebar:
+    
+     st.divider()
+
+    page = st.radio(
+        "📌 Navigate",
+        ["📊 Executive Dashboard", "🤖 Churn Prediction"]
+    )
 
     st.markdown("## 📊 SaaS Revenue Risk Intelligence")
 
@@ -117,13 +124,6 @@ with st.sidebar:
     ✔ Revenue-at-Risk Intelligence Layer  
     ✔ Production-Ready Deployment  
     """)
-
-    st.divider()
-
-    page = st.radio(
-        "📌 Navigate",
-        ["📊 Executive Dashboard", "🤖 Churn Prediction"]
-    )
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("👑 Created by Priyanka")
@@ -267,5 +267,6 @@ elif page == "🤖 Churn Prediction":
                 st.session_state["predictions"] = []
 
             st.session_state["predictions"].append(prob)
+
 
 
