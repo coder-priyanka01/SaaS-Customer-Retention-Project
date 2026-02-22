@@ -41,7 +41,7 @@ st.markdown("""
 
 /* SIDEBAR BACKGROUND */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #141e30, #243b55);
+    background: linear-gradient(180deg, #0f2027, #203a43);
     padding-top: 20px;
 }
 
@@ -247,3 +247,4 @@ elif page == "🤖 Churn Prediction":
                 st.session_state["predictions"] = []
 
             st.session_state["predictions"].append(prob)
+
