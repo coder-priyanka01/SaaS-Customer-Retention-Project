@@ -2,6 +2,7 @@ import joblib
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 # --------------------------------------------------
 # PAGE CONFIG
@@ -13,14 +14,18 @@ st.set_page_config(
 )
 
 # --------------------------------------------------
-# PROFESSIONAL CSS
+# GLOBAL + SIDEBAR CSS
 # --------------------------------------------------
 st.markdown("""
 <style>
+
+/* MAIN BACKGROUND */
 .main {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     color: white;
 }
+
+/* BUTTON STYLE */
 .stButton>button {
     background: linear-gradient(45deg, #00c6ff, #0072ff);
     color: white;
@@ -33,29 +38,52 @@ st.markdown("""
     box-shadow: 0px 0px 25px rgba(0,114,255,1);
     transform: scale(1.05);
 }
+
+/* SIDEBAR BACKGROUND */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #141e30, #243b55);
+    padding-top: 20px;
+}
+
+/* SIDEBAR TEXT */
+section[data-testid="stSidebar"] * {
+    color: #ffffff !important;
+}
+
+/* SIDEBAR RADIO STYLE */
+div[role="radiogroup"] > label {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+div[role="radiogroup"] > label:hover {
+    background: rgba(0, 198, 255, 0.3);
+    transform: translateX(5px);
+}
+
+/* SIDEBAR SEPARATOR */
+hr {
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # --------------------------------------------------
 # LOAD MODEL
 # --------------------------------------------------
-import os
-import joblib
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-model_path = os.path.join(BASE_DIR, "churn_model.pkl")
-features_path = os.path.join(BASE_DIR, "model_features.pkl")
-
-model = joblib.load(model_path)
-features = joblib.load(features_path)
-model_features = features
-
+model = joblib.load(os.path.join(BASE_DIR, "churn_model.pkl"))
+model_features = joblib.load(os.path.join(BASE_DIR, "model_features.pkl"))
 
 # --------------------------------------------------
-# SIDEBAR NAVIGATION
+# SIDEBAR
 # --------------------------------------------------
 st.sidebar.title("📌 Navigation")
+
 page = st.sidebar.radio(
     "Go to",
     ["📊 Executive Dashboard",
@@ -63,7 +91,22 @@ page = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### 👑 Created by Priyanka")
+
+st.sidebar.markdown("""
+### 📌 About This System
+
+This AI-powered system predicts customer churn risk  
+and estimates potential revenue loss.
+
+It helps decision-makers:
+
+- Identify high-risk customers  
+- Prioritize retention strategies  
+- Protect recurring revenue  
+""")
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("👑 Created by Priyanka")
 
 # --------------------------------------------------
 # FEATURE GROUPING
@@ -86,6 +129,14 @@ numeric_features = ["Sales", "Quantity", "Discount", "Profit", "risk_score"]
 if page == "📊 Executive Dashboard":
 
     st.title("📊 Executive Revenue Intelligence Dashboard")
+
+    st.markdown("""
+    This dashboard provides a high-level overview of customer risk
+    distribution and financial exposure.
+
+    It transforms machine learning predictions into actionable
+    business insights.
+    """)
 
     col1, col2, col3 = st.columns(3)
     col1.metric("Model AUC", "0.89")
@@ -134,6 +185,14 @@ elif page == "🤖 Churn Prediction":
 
     st.title("🤖 Customer Churn Prediction Engine")
 
+    st.markdown("""
+    Enter customer details below to calculate churn probability
+    and estimate revenue at risk.
+
+    The AI model analyzes behavioral and financial indicators
+    to generate a churn risk score.
+    """)
+
     main_col, explain_col = st.columns([2,1])
 
     with main_col:
@@ -163,22 +222,17 @@ elif page == "🤖 Churn Prediction":
 
             input_df = pd.DataFrame([inputs])
 
-            # Ensure all model features exist
             for col in model_features:
                 if col not in input_df.columns:
                     input_df[col] = 0
 
-            # Correct feature order
             input_df = input_df[model_features]
 
-            # Predict probability
             prob = model.predict_proba(input_df)[:, 1][0]
             percent = round(prob * 100, 2)
 
-            # Revenue impact
             revenue_risk = inputs["Sales"] * prob
 
-            # Risk classification
             if percent < 35:
                 st.success(f"Low Risk 🟢 ({percent}%)")
             elif percent < 65:
@@ -193,15 +247,3 @@ elif page == "🤖 Churn Prediction":
                 st.session_state["predictions"] = []
 
             st.session_state["predictions"].append(prob)
-            st.session_state["last_input"] = input_df
-
-    with explain_col:
-        st.subheader("📘 AI Explanation Panel")
-        st.markdown("""
-This AI engine:
-- Predicts churn probability
-- Calculates revenue impact
-- Provides explainable insights
-- Helps executives make retention decisions
-""")
-    
