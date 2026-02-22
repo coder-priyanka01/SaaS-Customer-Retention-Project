@@ -135,7 +135,7 @@ with st.sidebar:
     st.markdown(
         """
         <div style='text-align: center; font-size: 14px;'>
-            👩‍💻 <b>👑 Created by Priyanka</b><br>
+        👩‍💻 <b> Created by Priyanka</b><br>
             AI & Data Science Enthusiast
         </div>
         """,
@@ -281,6 +281,7 @@ elif page == "🤖 Churn Prediction":
                 st.session_state["predictions"] = []
 
             st.session_state["predictions"].append(prob)
+
 
 
 
