@@ -1,6 +1,7 @@
 📊 Customer Churn Prediction & Revenue Risk Dashboard
 
 
+
 🔍 Overview
 This project predicts customer churn using Machine Learning and analyzes revenue exposure through an interactive Power BI dashboard.
 
@@ -40,5 +41,5 @@ Python | Scikit-learn | Pandas | Power BI
 
 ---
 
-##👩‍💻 Created by
+👩‍💻 Created by
 Priyanka Kumari
