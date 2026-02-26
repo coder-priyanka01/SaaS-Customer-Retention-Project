@@ -46,4 +46,4 @@ Python | Scikit-learn | Pandas | Power BI
 ---
 
 👩‍💻 Created by
-Priyanka Kumari
+  Priyanka
