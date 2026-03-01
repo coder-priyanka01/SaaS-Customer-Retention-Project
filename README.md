@@ -1,189 +1,155 @@
 # 📊 SaaS Customer Retention & Revenue Risk Intelligence System
 
-🔗 **Live Application:**  
+
+🔗 **Live Application**  
 https://saas-customer-retention-project.streamlit.app/
 
 ---
 
 ## 🚀 Project Overview
 
-Customer churn is one of the most critical revenue threats in SaaS businesses. Even a small increase in churn rate can significantly impact recurring revenue and long-term growth.
+Customer churn is one of the biggest revenue threats in SaaS businesses.  
+Even small increases in churn can significantly impact recurring revenue and long-term growth.
 
-This project is not just a churn prediction model — it is a Revenue Risk Intelligence System that transforms machine learning outputs into actionable business decisions.
+This project goes beyond churn prediction.  
+It builds a **Revenue Risk Intelligence System** that connects Machine Learning, SQL data modeling, and dashboard analytics to support proactive retention strategy.
 
-It enables leadership teams to:
+The system enables businesses to:
 
-. Identify high-risk customers early
+- Identify high-risk customers early  
+- Quantify potential revenue loss  
+- Segment customers by actionable risk levels  
+- Support data-driven retention decisions  
 
-. Quantify financial exposure
+---
 
-. Prioritize retention campaigns
+## 🏗 System Architecture
 
-. Optimize customer success efforts
+1. **Data Layer**
+   - Raw SaaS transactional data collected from CSV
+   
+   - Data cleaning and standardization performed in MySQL
 
-. Reduce preventable revenue loss
+2. **Machine Learning Layer**
+   - XGBoost model predicts churn probability
+   
+   - Model serialized and deployed via Streamlit
 
-🎯 Business Problem
+3. **Revenue Intelligence Layer**
+   - Revenue at Risk = Sales × Churn Probability
+   
+   - Customers segmented into actionable risk categories
+
+4. **Analytics & Visualization Layer**
+   - SQL queries prepare analytical datasets
+   
+   - Power BI dashboard visualizes churn, revenue risk, and trends
+
+This architecture connects Data Science, Database Engineering, and Business Intelligence into one unified system.
+
+---
+
+## 🎯 Business Problem
 
 In SaaS models:
 
-. Revenue is recurring
+- Revenue is recurring  
 
-. Customer Lifetime Value (CLV) is crucial
+- Customer Lifetime Value (CLV) is critical  
 
-. Retention is more cost-effective than acquisition
+- Retention is more cost-effective than acquisition  
 
-However, most companies only track churn after it happens.
-
-This system shifts from reactive churn reporting to proactive churn prevention.
-
----
-
-💡 Business Value Delivered
-
-Instead of showing just churn probability, this application:
-
-✔ Converts churn risk into Revenue at Risk
-✔ Segments customers into actionable risk buckets
-✔ Helps prioritize high-value at-risk accounts
-✔ Supports data-driven retention strategy
-
-This bridges the gap between Data Science and Business Strategy.
+Most companies measure churn after it happens.  
+This project shifts from **reactive reporting** to **proactive churn prevention**.
 
 ---
 
-## 🧠 Machine Learning Workflow
+## 🧠 Machine Learning Layer
 
-### 1️⃣ Model Development (Notebook)
 - Dataset: `SaaS-Sales.csv`
-- Model trained in Jupyter/Colab notebook
-- XGBoost Classifier used for prediction
-- Model saved using `joblib`
-- Feature order saved separately (`model_features.pkl`) to ensure prediction consistency
+- Model: XGBoost Classifier
+- Framework: Scikit-learn
+- Model serialized using `joblib`
+- Feature order preserved using `model_features.pkl`
+- Churn probability generated using `predict_proba`
 
-### 2️⃣ Model Deployment
-- Model loaded in Streamlit app
-- Feature alignment ensured before prediction
-- Probability extracted using `predict_proba`
-- Revenue impact calculated dynamically
+The output of the model is not just a prediction — it feeds the revenue intelligence layer.
 
 ---
 
-📊 Revenue Intelligence Layer
+## 🗄 SQL & Data Layer
 
-The system calculates:
+- Raw and cleaned SaaS datasets structured in MySQL  
+- Date standardization and data cleaning performed  
+- Revenue, churn, and risk calculations implemented  
+- Indexing applied for performance optimization  
+- Year-wise revenue and churn analysis supported  
 
-Revenue at Risk = Sales × Churn Probability
+This layer prepares the dataset for dashboard reporting and business insights.
 
-This transforms a technical ML prediction into a financial KPI that executives can immediately interpret.
+---
+
+## 📊 Revenue Intelligence Logic
+
+**Revenue at Risk = Sales × Churn Probability**
 
 Example:
 
-. Customer Sales = $10,000
+- Sales = $10,000  
+- Churn Probability = 70%  
+- Revenue at Risk = $7,000  
 
-. Churn Probability = 0.70
-
-. Revenue at Risk = $7,000
-
-This makes the model decision-ready
+This converts ML output into a financial KPI that executives can act on.
 
 ---
 
-## 🖥️ Application Features
+## 📈 Power BI Dashboard
 
-### 📊 Executive Dashboard
-- Risk distribution visualization (Low / Medium / High)
-- Revenue-at-risk calculator
-- Business metrics display
-- Session-based prediction aggregation
+The interactive dashboard provides:
 
-### 🤖 Churn Prediction Engine
-- User input for numerical & categorical features
-- One-hot encoding alignment
-- Probability prediction
-- Risk classification thresholds:
+- Overall churn rate  
+- Revenue at Risk summary  
+- High / Medium / Low risk segmentation  
+- Industry-wise churn analysis  
+- Monthly churn trends  
+- Revenue vs churn probability insights  
+
+---
+
+## 🖥️ Streamlit Application
+
+- Real-time churn prediction
+- Automatic feature alignment before inference
+- Risk classification:
   - Low Risk: < 35%
   - Medium Risk: 35–65%
   - High Risk: > 65%
-- Revenue-at-risk estimation:
-Revenue at Risk = Sales × Churn Probability
+- Dynamic revenue-at-risk calculation
 
 ---
 
-## 📂 Project Structure
-├── app.py
-├── churn_model.pkl
-├── model_features.pkl
-├── SaaS-Sales.csv
-├── SaaS_Customer_Retention_&_Revenue_Risk_Intelligence_System.ipynb
-├── requirements.txt
-├── runtime.txt
+## 🛠 Tech Stack
+
+**Python | Scikit-learn | XGBoost | Pandas | NumPy | MySQL | Power BI | Streamlit**
 
 ---
 
-## 🔧 Technical Stack
+## 📚 Key Learnings
 
-- Python 3.11
-- Streamlit
-- XGBoost
-- Scikit-learn
-- Pandas
-- NumPy
-- Matplotlib
-- Joblib
-
----
-
-## 🏗️ Key Implementation Details
-
-### ✔ Feature Handling
-Categorical variables (Region, Subregion, Industry, Segment) are one-hot encoded.  
-Feature order is strictly maintained using `model_features.pkl`.
-
-### ✔ Prediction Safety
-Before inference:
-- Missing features are auto-filled with 0
-- Columns reordered to match training schema
-
-This prevents deployment-time feature mismatch errors.
-
-### ✔ Revenue Intelligence Layer
-Model output is not just shown as probability.
-It is converted into financial exposure to make insights business actionable.
-
----
-
-## 🚀 Deployment
-
-The app is deployed using Streamlit Cloud.
-
-Dependency management:
-- `requirements.txt`
-- `runtime.txt` (Python 3.11)
-
----
-
-📚 Key Learnings
-
-. Translating ML outputs into financial metrics
-
-. Aligning data science with executive KPIs
-
-. Model serialization & production deployment
-
-. Feature consistency management
-
-. Building ML-powered business dashboards
+- Translating ML predictions into financial metrics  
+- Aligning data science with executive KPIs  
+- Database modeling and data standardization  
+- Model deployment and feature consistency management  
+- Building business-focused ML dashboards  
 
 ---
 
 ## 👩‍💻 Author
 
-**Priyanka**
-
+Priyanka  
 AI & Data Science Enthusiast  
 Focused on building business-driven ML applications.
 
----
+⭐ If you find this project useful, feel free to star the repository.
 
 ⭐ If you find this project interesting, feel free to star the repository.
