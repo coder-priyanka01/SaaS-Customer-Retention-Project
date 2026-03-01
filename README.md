@@ -11,7 +11,8 @@ https://saas-customer-retention-project.streamlit.app/
 Customer churn is one of the biggest revenue threats in SaaS businesses.  
 Even small increases in churn can significantly impact recurring revenue and long-term growth.
 
-This project goes beyond churn prediction.  
+This project goes beyond churn prediction.
+
 It builds a **Revenue Risk Intelligence System** that connects Machine Learning, SQL data modeling, and dashboard analytics to support proactive retention strategy.
 
 The system enables businesses to:
